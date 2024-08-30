@@ -24,6 +24,7 @@ buildscript {
 }
 
 apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
 
 repositories {
     maven { url "https://repo1.maven.org/maven2" }
@@ -37,12 +38,11 @@ android {
 apply from: 'rules.gradle'
 
 afterEvaluate {
-    apply plugin: 'maven-publish'
     publishing {
         publications {
             // Creates a Maven publication called "release".
             release(MavenPublication) {
-                from components.release
+                from components.findByName('release')
                 groupId = 'com.github.SnakeDrak'
                 artifactId = 'dc-volley'
                 version = '1.1.6'
